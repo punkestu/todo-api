@@ -9,6 +9,7 @@ pub struct GetManyOpt {
 pub struct GetOpt {
     pub id: Option<u32>,
     pub state: Option<bool>,
+    pub sort_by_id: Option<bool>
 }
 
 pub trait Todo {

@@ -25,8 +25,17 @@ impl<T: repo::Todo> Todo<T> {
     pub fn get_recent(&self) -> model::Todo {
         self.repo.get(GetOpt{
             state: Some(false),
+            sort_by_id: Some(true),
             ..Default::default()
         })
+    }
+    pub fn toggle_state(&self, id: u32) -> model::Todo {
+        let mut updated_todo = self.repo.get(GetOpt{
+            id: Some(id),
+            ..Default::default()
+        });
+        updated_todo.state = !updated_todo.state;
+        self.repo.save(updated_todo)
     }
 }
 

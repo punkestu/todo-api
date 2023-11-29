@@ -12,7 +12,9 @@ impl Todo {
 
 impl repo::Todo for Todo {
     fn save(&self, mut todo: crate::model::model::Todo) -> model::Todo {
-        todo.id = Some(1);
+        if todo.id.is_none() {
+            todo.id = Some(1);
+        }
         todo
     }
     fn get_many(&self, _opt: GetManyOpt) -> Vec<model::Todo> {
@@ -29,14 +31,15 @@ impl repo::Todo for Todo {
                     label: String::from("test not completed"),
                     state: false,
                 }]
-            }
+            };
         }
         vec![]
     }
     fn get(&self, _opt: GetOpt) -> model::Todo {
-        println!("get");
         model::Todo {
-            ..Default::default()
+            id: Some(1),
+            label: "test todo".into(),
+            state: false
         }
     }
 }
